@@ -10,7 +10,22 @@ Below steps have been tested on **Ubuntu 20.04**.
 * Dockerfile(docker/ros2_2021.4/ros2_foxy/Dockerfile)
 * Converted models(Optional)
 
-## 2. add proxy
+## 2. Install Docker
+```
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo \
+	"deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+	  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+## 3. add docker proxy
 ```
 a. sudo mkdir -p /etc/systemd/system/docker.service.d/
 		 
@@ -28,12 +43,12 @@ Environment="HTTP_PROXY=http://child-prc.intel.com:913" "HTTPS_PROXY=http://chil
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
-## 3. Build image
+## 4. Build image
 ```
 sudo docker build --build-arg ROS_PRE_INSTALLED_PKG=foxy-desktop --build-arg VERSION=foxy --build-arg "HTTP_PROXY=http://proxy-prc.intel.com:913" -t ros2_foxy_openvino_20230 .
 ```
 
-## 4. Running the Demos
+## 5. Running the Demos
 * Install dependency
 ```
   xhost +
