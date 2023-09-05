@@ -7,6 +7,9 @@ Supported ROS2 versions include foxy and galactic.
 ## 1. Environment Setup
 * Install docker. </br>
 Refer to: [Docker_install_guide](https://docs.docker.com/engine/install/ubuntu/)
+* Realsense Camera inserted
+* Dockerfile
+* Converted models
 
 ## 2. Build docker image by dockerfile
 ```
