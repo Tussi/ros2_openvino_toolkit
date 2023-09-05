@@ -75,27 +75,27 @@ omz_downloader --print_all
 cd ~/catkin_ws/src/ros2_openvino_toolkit/data/model_list
 omz_downloader --list download_model.lst -o /opt/openvino_toolkit/models/
 ```
-*If the model (tensorflow, caffe, MXNet, ONNX, Kaldi) need to be converted to intermediate representation (such as the model for object detection):
+* If the model (tensorflow, caffe, MXNet, ONNX, Kaldi) need to be converted to intermediate representation (such as the model for object detection):
 ```
 cd ~/catkin_ws/src/ros2_openvino_toolkit/data/model_list
 omz_converter --list convert_model.lst -d /opt/openvino_toolkit/models/ -o /opt/openvino_toolkit/models/convert
 ```
 * YOLOV8
-  ```
-  mkdir -p yolov8 && cd yolov8
-  pip install ultralytics
-  apt install python3.10-venv
-  python3 -m venv openvino_env
-  source openvino_env/bin/activate
-  python -m pip install --upgrade pip
-  pip install openvino-dev	
-  pip install openvino-dev[extras]
-  pip install openvino-dev[tensorflow2,onnx]
-  #yolo export model=yolov8n.pt format=openvino
-  yolo export model=yolov8n.pt format=onnx opset=10
-  mo --input_model yolov8n.onnx --use_legacy_frontend
-  cp yolov8* /opt/openvino_toolkit/models/convert/public/FP32/yolov8n/
-  ```
+```
+mkdir -p yolov8 && cd yolov8
+pip install ultralytics
+apt install python3.10-venv
+python3 -m venv openvino_env
+source openvino_env/bin/activate
+python -m pip install --upgrade pip
+pip install openvino-dev	
+pip install openvino-dev[extras]
+pip install openvino-dev[tensorflow2,onnx]
+#yolo export model=yolov8n.pt format=openvino
+yolo export model=yolov8n.pt format=onnx opset=10
+mo --input_model yolov8n.onnx --use_legacy_frontend
+cp yolov8* /opt/openvino_toolkit/models/convert/public/FP32/yolov8n/
+```
 
 * copy label files (execute once)
 ```
@@ -109,9 +109,11 @@ sudo cp ~/catkin_ws/src/ros2_openvino_toolkit/data/labels/object_detection/vehic
 
 * Check the parameter configuration in ros2_openvino_toolkit/sample/param/xxxx.yaml before lauching, make sure parameters such as model_path, label_path and input_path are set correctly. 
   
-  * run object yolo sample code input from RealSenseCamera.
-  ```
-   vim /root/catkin_ws/install/openvino_node/share/openvino_node/param/pipeline_object_yolo.yaml
+* run object yolo sample code input from RealSenseCamera.
+```
+vim /root/catkin_ws/install/openvino_node/share/openvino_node/param/pipeline_object_yolo.yaml
+```
+```
 Pipelines:
 - name: object
   inputs: [RealSenseCamera]
@@ -137,15 +139,16 @@ Pipelines:
       right: [RViz]
 
 OpenvinoCommon:
-  ```
+```
   
-  ```  
-  ros2 launch openvino_node pipeline_object_yolo.launch.py
-  ```
+```  
+ros2 launch openvino_node pipeline_object_yolo.launch.py
+```
 * run segmentation_instance sample code input from RealSenseCamera.
-  ```
+```
 vim /root/catkin_ws/install/openvino_node/share/openvino_node/param/pipeline_segmentation_instance.yaml
-  ```
+```
+```
 Pipelines:
 - name: segmentation
   inputs: [RealSenseCamera]
@@ -175,42 +178,42 @@ Pipelines:
       right: [RViz]
 
 Common:
-  ```
-  ```  
-  ros2 launch openvino_node pipeline_ segmentation_instance.launch.py
-  ```
+```
+```  
+ros2 launch openvino_node pipeline_ segmentation_instance.launch.py
+```
 * run face detection sample code input from StandardCamera.
+```
+ros2 launch dynamic_vino_sample pipeline_people.launch.py
+```
+* run person reidentification sample code input from StandardCamera.
+```
+ros2 launch dynamic_vino_sample pipeline_reidentification.launch.py
+```
+* run person face reidentification sample code input from RealSenseCamera.
+```
+ros2 launch dynamic_vino_sample pipeline_face_reidentification.launch.py
+```
+* run face detection sample code input from Image.
+```
+ros2 launch dynamic_vino_sample pipeline_image.launch.py
   ```
-  ros2 launch dynamic_vino_sample pipeline_people.launch.py
-  ```
-  * run person reidentification sample code input from StandardCamera.
-  ```
-  ros2 launch dynamic_vino_sample pipeline_reidentification.launch.py
-  ```
-  * run person face reidentification sample code input from RealSenseCamera.
-  ```
-  ros2 launch dynamic_vino_sample pipeline_face_reidentification.launch.py
-  ```
-  * run face detection sample code input from Image.
-  ```
-  ros2 launch dynamic_vino_sample pipeline_image.launch.py
-  ```
-  * run object segmentation sample code input from RealSenseCameraTopic.
-  ```
-  ros2 launch dynamic_vino_sample pipeline_segmentation.launch.py
-  ```
-  * run object segmentation sample code input from Image.
-  ```
-  ros2 launch dynamic_vino_sample pipeline_segmentation_image.launch.py
-  ``` 
-  * run vehicle detection sample code input from StandardCamera.
-  ```
-  ros2 launch dynamic_vino_sample pipeline_vehicle_detection.launch.py
-  ```
-  * run person attributes sample code input from StandardCamera.
-  ```
-  ros2 launch dynamic_vino_sample pipeline_person_attributes.launch.py
-  ```
+* run object segmentation sample code input from RealSenseCameraTopic.
+```
+ros2 launch dynamic_vino_sample pipeline_segmentation.launch.py
+```
+* run object segmentation sample code input from Image.
+```
+ros2 launch dynamic_vino_sample pipeline_segmentation_image.launch.py
+``` 
+* run vehicle detection sample code input from StandardCamera.
+```
+ros2 launch dynamic_vino_sample pipeline_vehicle_detection.launch.py
+```
+* run person attributes sample code input from StandardCamera.
+```
+ros2 launch dynamic_vino_sample pipeline_person_attributes.launch.py
+```
 
 # More Information
 * ROS2 OpenVINO discription writen in Chinese: https://mp.weixin.qq.com/s/BgG3RGauv5pmHzV_hkVAdw
