@@ -137,13 +137,15 @@ Pipelines:
       right: [RViz]
 
 OpenvinoCommon:
-```
+  ```
+  
   ```  
   ros2 launch openvino_node pipeline_object_yolo.launch.py
   ```
 * run segmentation_instance sample code input from RealSenseCamera.
   ```
 vim /root/catkin_ws/install/openvino_node/share/openvino_node/param/pipeline_segmentation_instance.yaml
+  ```
 Pipelines:
 - name: segmentation
   inputs: [RealSenseCamera]
